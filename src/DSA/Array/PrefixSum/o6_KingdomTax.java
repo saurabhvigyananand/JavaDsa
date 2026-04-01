@@ -63,7 +63,7 @@ Expected Space Complexity:
 O(N)
 */
 
-public class o5_KingdomTax {
+public class o6_KingdomTax {
 
     public static void main(String[] args) {
 
