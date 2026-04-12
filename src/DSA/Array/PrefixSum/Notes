@@ -1,0 +1,106 @@
+Prefix + HashMap Notes:
+
+## 🔥 Updated Prefix Sum + HashMap Summary Table
+
+| Question Type                          | Map Initialize   | Map me kya check karte hain                  | Map me kya store karte hain |
+| -------------------------------------- | ---------------- | -------------------------------------------- | --------------------------- |
+| **Count subarrays with sum = k**       | `map.put(0, 1)`  | `sum - k` exist hai ya nahi                  | `sum → frequency`           |
+| **Longest subarray with sum = k**      | `map.put(0, -1)` | `sum - k` exist hai ya nahi                  | `sum → first index`         |
+| **Equal 0s and 1s (longest)**          | `map.put(0, -1)` | same `sum` exist hai ya nahi                 | `sum → first index`         |
+| **Count subarrays with equal 0s & 1s** | `map.put(0, 1)`  | same `sum` exist hai ya nahi                 | `sum → frequency`           |
+| **Longest subarray divisible by k**    | `map.put(0, -1)` | same `remainder (sum % k)` exist hai ya nahi | `remainder → first index`   |
+| **Count subarrays divisible by k**     | `map.put(0, 1)`  | same `remainder (sum % k)` exist hai ya nahi | `remainder → frequency`     |
+
+---
+
+## 🧠 Final Clear Pattern (Ultimate 🔥)
+
+| Type            | Store     | Check                   |
+| --------------- | --------- | ----------------------- |
+| **Count**       | frequency | match (sum / remainder) |
+| **Length**      | index     | match (sum / remainder) |
+| **Exact k**     | `sum - k` |                         |
+| **Divisible k** | `sum % k` |                         |
+
+---
+
+## ⚡ One-line Ultimate Memory Trick
+
+👉
+**"Count → frequency, Length → index, Exact → (sum-k), Divisible → remainder"**
+---
+
+Modulo wala case
+Always use:
+rem = (sum % k + k) % k;
+
+
+First occurrence rule
+Length wale questions me:
+if(!map.containsKey(...)) store karo
+----------------------------------------------------------
+
+
+Prefix sum without HashMap:-
+
+## 🔥 Prefix Sum (Without HashMap) Summary Table
+
+| Question Type                | Initialization       | Preprocessing                      | Query / Logic                                     | Store kya karte hain  |
+| ---------------------------- | -------------------- | ---------------------------------- | ------------------------------------------------- | --------------------- |
+| **Basic Prefix Sum Build**   | `prefix[0] = arr[0]` | `prefix[i] = prefix[i-1] + arr[i]` | —                                                 | prefix array          |
+| **Range Sum Query (L to R)** | prefix array ready   | —                                  | `prefix[r] - prefix[l-1]`                         | prefix array          |
+| **Range Sum (L = 0 case)**   | —                    | —                                  | `prefix[r]`                                       | prefix array          |
+| **Total Sum of Array**       | —                    | —                                  | `prefix[n-1]`                                     | prefix array          |
+| **Equilibrium Index**        | total sum nikal lo   | —                                  | left sum = right sum                              | prefix ya running sum |
+| **Left Sum / Right Sum**     | —                    | —                                  | left = `prefix[i-1]`, right = `total - prefix[i]` | prefix array          |
+
+---
+
+## 🧠 Key Concepts
+
+### 1️ Prefix Array ka matlab
+
+```java
+prefix[i] = 0 se i tak ka sum
+```
+
+---
+
+### 2️ Range Query Formula
+
+```java
+sum(l, r) = prefix[r] - prefix[l-1]
+```
+
+---
+
+### 3️ Edge Case
+
+```java
+if(l == 0) → directly prefix[r]
+```
+
+---
+
+### 4️ Kab use hota hai?
+
+* Multiple queries (Q zyada ho)
+* Static array (update nahi ho raha)
+
+---
+
+## ⚡ Prefix vs Prefix + HashMap (Final Clarity)
+
+| Feature        | Prefix Only       | Prefix + HashMap                   |
+| -------------- | ----------------- | ---------------------------------- |
+| Use case       | Range sum queries | Pattern detection                  |
+| Query type     | fixed (L, R)      | dynamic (sum = k, divisible, etc.) |
+| Data structure | array             | hashmap                            |
+| Complexity     | O(1) per query    | O(N) overall                       |
+
+---
+
+## 🔥 One-line Memory Trick
+
+👉
+**"Prefix → fast range sum, HashMap → pattern detect"**
