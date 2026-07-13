@@ -1,6 +1,6 @@
 package DSA.Array.Basics.ArrayTraversal;
 
-public class secondLargest {
+public class o6_secondLargest {
 
 	public static void main(String[] args) {
 
