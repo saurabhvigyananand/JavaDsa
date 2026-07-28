@@ -267,6 +267,11 @@ public class P04_RemoveDuplicatesFromSortedArray {
  * ⭐ Easy
  *
  * 1. Allow each element to appear at most twice.
+ * 	Status: ☐ Not Started
+ *            ☑ Completed
+ *
+ *    File:
+ *    P04_V1_RemoveDuplicatesAllowTwice.java
  *
  * 2. Count duplicate elements.
  *
@@ -289,14 +294,19 @@ public class P04_RemoveDuplicatesFromSortedArray {
  * Follow-up Questions:
  *
  * Q1. Why do we need two pointers instead of one?
+ * 	j always points to the last unique element that has already been placed correctly. When I find a new unique element, I first move j to the next available position using ++j, and then copy the new unique element there. This ensures that I never overwrite an existing unique element and always maintain the correct sequence.
  *
  * Q2. Why is this algorithm O(n)?
+ * 	The time complexity is O(n) because the read pointer traverses the array exactly once from the first element to the last. In the worst case, the last element may also need to be checked, so every element must be visited. Although the algorithm uses two pointers, the write pointer does not perform an independent traversal. It only moves forward when a new unique element is found, and each position is written at most once. Therefore, the total number of operations is proportional to the number of elements, resulting in a time complexity of O(n).
  *
  * Q3. Can this be solved recursively?
+ *  Yes, it can be solved recursively, but I would not prefer it for this problem because the iterative two-pointer solution is simpler and uses O(1) auxiliary space, whereas recursion adds O(n) call stack space without improving the time complexity.
  *
  * Q4. Can this be solved using Java Streams?
+ *  Yes, this problem can be solved using Java Streams, but I would not prefer Streams here. The problem requires in-place modification of the array using the two-pointer technique, which is much simpler and more readable with a loop. Using Streams would make the solution more complex and less intuitive, especially because Streams are designed for declarative data processing rather than in-place array updates. Therefore, I would choose the iterative approach in an interview.
  *
  * Q5. Why is extra space O(1)?
+ *  The auxiliary space complexity is O(1) because the algorithm uses only a fixed number of extra variables, such as the read pointer and the write pointer. The amount of extra memory does not depend on the size of the input array. Since no additional array or data structure is created and the array is modified in place, the auxiliary space complexity remains O(1).
  *
  * ------------------------------------------------------------
  *
