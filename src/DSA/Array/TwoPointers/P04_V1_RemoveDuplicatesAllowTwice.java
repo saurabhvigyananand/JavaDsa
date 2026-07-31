@@ -185,31 +185,54 @@ package DSA.Array.TwoPointers;
 
 public class P04_V1_RemoveDuplicatesAllowTwice {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-//		int[] arr = {1,1,1,2,2,3};
-//		int[] arr = {0,0,1,1,1,1,2,3,3};
-//		int[] arr = {5};
-//		int[] arr = {};
-//		int[] arr = {2,2,2,2,2};
-		int[] arr = {-3,-3,-3,-2,-2,-1};
+        // int[] arr = {1,1,1,2,2,3};
+        // int[] arr = {0,0,1,1,1,1,2,3,3};
+        // int[] arr = {5};
+        // int[] arr = {};
+        // int[] arr = {2,2,2,2,2};
+        int[] arr = { -3, -3, -3, -2, -2, -1 };
 
-		int k = removeDuplicates(arr);
+        int k = removeDuplicates(arr);
 
-		System.out.println("k = " + k);
+        System.out.println("k = " + k);
 
-		for (int i = 0; i < k; i++) {
-			System.out.print(arr[i] + " ");
-		}
+        for (int i = 0; i < k; i++) {
+            System.out.print(arr[i] + " ");
+        }
 
-	}
+    }
 
-	public static int removeDuplicates(int[] arr) {
+    public static int removeDuplicates(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return 0;
+        }
 
-		// Write your code here
+        if (arr.length <= 2) {
+            return arr.length;
+        }
+        // Write your code here
 
-		return 0;
-	}
+        // TYPE A:-
+        // int j= 1;
+        // for (int i = 2; i < arr.length; i++) {
+        // if(arr[i] != arr[j-1]){
+        // arr[++j]=arr[i];
+        // }
+        // }
+        // return j+1;
+
+        // Type B:-
+        int j = 2;
+        for (int i = 2; i < arr.length; i++) {
+            if (arr[i] != arr[j - 2]) {
+                arr[j++] = arr[i];
+            }
+        }
+
+        return j;
+    }
 
 }
 
@@ -223,20 +246,55 @@ public class P04_V1_RemoveDuplicatesAllowTwice {
  * ------------------------------------------------------------
  *
  * Time Complexity:
- *
- *
+ * The time complexity is O(n) because the read pointer (i) traverses the array
+ * exactly once from left to right.
+ * 
+ * The write pointer (j) does not perform a separate traversal. It only moves
+ * forward when a valid element needs to be kept, and each element is written at
+ * most once.
+ * 
+ * Since both pointers move only in the forward direction and no element is
+ * processed more than once, the total number of operations is proportional to
+ * the number of elements in the array.
+ * 
+ * Therefore, the overall time complexity is O(n).
  *
  * ------------------------------------------------------------
  *
  * Space Complexity:
  *
+ * * The auxiliary space complexity is O(1) because the algorithm
+ * uses only a fixed number of extra variables, such as the read
+ * pointer (i) and the write pointer (j).
  *
+ * No additional array or data structure is created, and the
+ * amount of extra memory does not increase with the size of the
+ * input array.
+ *
+ * Since the array is modified in-place, the auxiliary space
+ * complexity remains O(1).
  *
  * ------------------------------------------------------------
  *
  * Interview Explanation:
  *
+ * * I used the Two Pointer technique because I need to traverse the
+ * array while simultaneously maintaining the position where the
+ * next valid element should be placed.
  *
+ * The read pointer (i) traverses every element of the array,
+ * whereas the write pointer (j) maintains the next valid position
+ * (or the last accepted position, depending on the chosen implementation).
+ *
+ * Since the array is already sorted, duplicate elements always
+ * appear together. To allow at most two occurrences, I compare
+ * the current element with the element that is two accepted
+ * positions behind. If they are different, I accept the current
+ * element and place it at the write pointer; otherwise, I skip it
+ * because it would become the third occurrence.
+ *
+ * This approach modifies the array in-place, requires only one
+ * traversal, and satisfies all the constraints of the problem.
  *
  * ------------------------------------------------------------
  *
@@ -269,12 +327,13 @@ public class P04_V1_RemoveDuplicatesAllowTwice {
  * Follow-up Questions:
  *
  * Q1. Why doesn't the original condition
- *     (arr[j] != arr[i]) work?
+ * (arr[j] != arr[i]) work?
  *
- * Q2. Why is j - 2 used instead of j - 1?
+ * Q2. Why do we compare with the element
+ * two accepted positions behind?
  *
  * Q3. Can this algorithm be generalized
- *     to allow at most K occurrences?
+ * to allow at most K occurrences?
  *
  * Q4. Can this be solved recursively?
  *
@@ -305,8 +364,22 @@ public class P04_V1_RemoveDuplicatesAllowTwice {
  * ------------------------------------------------------------
  *
  * Notes / Learning:
- *
- *
+ * To allow at most K occurrences, compare with the element K accepted positions
+ * behind.
+ * 
+ * Rule:
+ * 
+ * Agar kisi element ko maximum K baar
+ * allow karna hai, to current element ko
+ * usse K accepted positions piche wale
+ * element se compare karo.
+ * 
+ * • Agar dono same hain, to current
+ * element (K+1)th occurrence hai,
+ * isliye reject kar do.
+ * 
+ * • Agar alag hain, to current element
+ * ko accept kar do.
  *
  * ============================================================
  */
