@@ -300,11 +300,25 @@ public class P04_V1_RemoveDuplicatesAllowTwice {
  *
  * Common Mistakes:
  *
- * 1.
+ * 1. Using the wrong comparison condition.
  *
- * 2.
+ * Many candidates compare the current element with the
+ * wrong accepted position (for example, comparing with
+ * the adjacent accepted element instead of the element
+ * two accepted positions behind), which breaks the logic
+ * of allowing at most two occurrences.
  *
- * 3.
+ * 2. Applying the original "unique elements" logic.
+ *
+ * Many candidates reuse the parent solution and end up
+ * allowing only one occurrence of each element instead
+ * of allowing at most two occurrences.
+ *
+ * 3. Incorrect write pointer updates.
+ *
+ * Initializing the write pointer incorrectly or making
+ * mistakes while incrementing it (pre/post increment) or
+ * returning the final length may produce incorrect output.
  *
  * ------------------------------------------------------------
  *
@@ -328,16 +342,86 @@ public class P04_V1_RemoveDuplicatesAllowTwice {
  *
  * Q1. Why doesn't the original condition
  * (arr[j] != arr[i]) work?
+ * The original condition works only when each distinct
+ * element is allowed to appear once because it compares
+ * the current element with the last accepted element.
  *
- * Q2. Why do we compare with the element
+ * In this variation, each element is allowed to appear
+ * at most twice. Therefore, comparing with the last
+ * accepted element would reject the second occurrence as
+ * well, reducing the solution back to the original
+ * "unique elements only" logic.
+ *
+ * Instead, we compare with the element two accepted
+ * positions behind, which correctly allows two
+ * occurrences while rejecting the third and subsequent
+ * occurrences.
+ * ===============================================
+ *
+ * Q2. Why is the comparison made with the element
  * two accepted positions behind?
+ *
+ * Because each distinct element is allowed to appear
+ * at most twice.
+ *
+ * The first two occurrences are already accepted, so
+ * when processing a new element, we compare it with
+ * the element two accepted positions behind.
+ *
+ * If both are equal, accepting the current element would
+ * create a third occurrence, so we reject it.
+ *
+ * If they are different, the current element can safely
+ * be accepted.
+ * ===============================================
  *
  * Q3. Can this algorithm be generalized
  * to allow at most K occurrences?
+ * 
+ * * Yes. The same two-pointer approach can be generalized
+ * to allow at most K occurrences of each distinct element.
+ *
+ * We compare the current element with the element K accepted
+ * positions behind.
+ *
+ * If both elements are equal, accepting the current element
+ * would create the (K+1)th occurrence, so we reject it.
+ *
+ * If they are different, we accept the current element.
+ *
+ * Therefore, the same logic works for any allowed occurrence
+ * count K.
+ * ==============================================
  *
  * Q4. Can this be solved recursively?
+ * * Yes, this problem can be solved recursively by processing
+ * the array elements one by one and maintaining the required
+ * write position.
  *
+ * However, I would prefer the iterative two-pointer approach
+ * for this problem because it is simpler and more intuitive.
+ * The iterative solution also uses O(1) auxiliary space,
+ * whereas recursion would require O(n) call-stack space in
+ * the worst case.
+ *
+ * Therefore, recursion is possible, but it does not provide
+ * any advantage for this problem.
+ * =================================================== *
+ * 
  * Q5. Can this be solved using Java Streams?
+ * * Yes, it is possible to use Java Streams to process the
+ * array, but I would not prefer Streams for this problem.
+ *
+ * The problem requires modifying the input array in-place,
+ * whereas Streams are mainly designed for declarative data
+ * processing and generally produce a new result rather than
+ * modifying the original array in-place.
+ *
+ * The two-pointer approach using a simple loop is more
+ * straightforward, readable, and efficient for this problem.
+ *
+ * Therefore, I would prefer the iterative two-pointer
+ * solution in an interview.
  *
  * ------------------------------------------------------------
  *
