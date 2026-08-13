@@ -254,18 +254,30 @@ public class P04_V2_CountDuplicateElements {
  * ------------------------------------------------------------
  *
  * Interview Explanation:
- *
+ * I start traversing from index 1 because I need to compare each element with
+ * its previous element at i-1.
+ * If arr[i] is equal to arr[i-1], it means the current element is a duplicate
+ * occurrence,
+ * so I increment the counter. Since the array is sorted, all occurrences of the
+ * same element will be adjacent,
+ * which allows us to identify duplicates by comparing adjacent elements. After
+ * traversing the entire array,
+ * I return the counter as the total number of duplicate occurrences
  *
  *
  * ------------------------------------------------------------
  *
  * Common Mistakes:
  *
- * 1.
- *
- * 2.
- *
- * 3.
+ * 1. Starting the loop from index 0 and then trying to access
+ * arr[i - 1], which would cause an invalid index.
+ * 
+ * 2. Using != instead of == in the condition and counting
+ * unique transitions instead of duplicate occurrences.
+ * 
+ * 3. Incorrectly incrementing the counter, such as incrementing
+ * it when elements are different or forgetting to increment
+ * it when a duplicate is found.
  *
  * ------------------------------------------------------------
  *
@@ -313,14 +325,42 @@ public class P04_V2_CountDuplicateElements {
  * Follow-up Questions:
  *
  * Q1. Why does the sorted property make this problem easier?
+ * The sorted property makes the problem easier because all duplicate
+ * occurrences of the same element appear adjacent to each other. Therefore, we
+ * only need to compare each element with its previous element. If they are
+ * equal, we know that the current element is a duplicate occurrence, so we
+ * increment the counter.
  *
  * Q2. Can this be solved without using two pointers?
+ * Yes. In fact, this problem does not require two pointers.
+ * We only need one traversal pointer, i, because we can compare
+ * arr[i] with arr[i - 1] to identify a duplicate occurrence.
+ * 
+ * The second pointer would be redundant because it would simply
+ * follow the traversal pointer and provide no additional benefit.
+ * Therefore, a single pointer with a counter is the simpler
+ * approach.
  *
  * Q3. What would change if the array were unsorted?
+ * If the array is unsorted, we can't rely on adjacent elements because we don't
+ * know where duplicate occurrences are. Without using an extra data structure,
+ * we may need nested traversal, resulting in O(n²) time
  *
  * Q4. Can this be solved using a HashMap?
+ * Yes, we can solve this using a HashMap by storing the frequency of each
+ * element. However, since the array is already sorted, we can count duplicate
+ * occurrences with a single traversal and O(1) auxiliary space. Therefore, I
+ * would prefer the simpler approach without an additional data structure.
  *
  * Q5. Can this be solved using Java Streams?
+ * Yes, this problem can be solved using Java Streams.
+ * However, I would prefer the simple iterative approach because
+ * the problem only requires comparing adjacent elements and
+ * maintaining a counter.
+ * 
+ * Using a loop is more straightforward and readable for this
+ * simple traversal, so I would choose the iterative approach
+ * in an interview.
  *
  * ------------------------------------------------------------
  *
@@ -349,8 +389,17 @@ public class P04_V2_CountDuplicateElements {
  * ------------------------------------------------------------
  *
  * Notes / Learning:
- *
- *
+ * 
+ * Because the array is sorted, duplicate occurrences always
+ * appear adjacent to each other. Therefore, we can compare
+ * arr[i] with arr[i - 1] and count every additional occurrence.
+ * 
+ * A second pointer is not required because i - 1 already gives
+ * us the previous element needed for comparison.
+ * 
+ * This problem helped me understand that not every array problem
+ * requires the Two Pointer technique, even if it comes from a
+ * Two Pointer-related problem set.
  *
  * ============================================================
  */
